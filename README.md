@@ -1,34 +1,49 @@
-# 🛡️ AI WAF: Random Forest vs. Regex Comparison
+🛡️ Hệ Thống AI-WAF: Phát Hiện Truy Cập Bất Thường Dựa Trên Random Forest
+Đây là một hệ thống bảo mật ứng dụng Web (WAF) thế hệ mới, sử dụng Trí Tuệ Nhân Tạo để hỗ trợ Web Server lọc và ngăn chặn các hành vi tấn công. Thay vì chỉ dựa vào các tập luật cố định, hệ thống này có khả năng tự học và nhận diện các biến thể tấn công phức tạp.
 
-Dự án này thực hiện nghiên cứu và so sánh hiệu năng giữa hai phương pháp bảo mật ứng dụng Web (WAF): **Trí tuệ nhân tạo (Random Forest)** và **Bộ lọc truyền thống (Regex)**.
+🚀 Điểm Mạnh Của Hệ Thống
+Khác với các bộ lọc thông thường, mã nguồn này được thiết kế để đối phó với các kỹ thuật tấn công hiện đại:
 
-## 📝 Giới thiệu
-Mục tiêu của dự án là đánh giá khả năng nhận diện các cuộc tấn công mạng (SQL Injection, XSS,...) dựa trên bộ dữ liệu HTTP. Chúng ta sẽ so sánh xem liệu AI có thực sự vượt trội hơn các quy tắc (rules) cố định hay không.
+Deep Decoding Engine: Tự động giải mã nhiều lớp (URL Encode, HTML Entities) để lột trần các payload được hacker che giấu (Obfuscation).
 
-## 📊 Các thành phần chính
-Dự án bao gồm các bước xử lý dữ liệu và đánh giá chi tiết:
-1. **Tiền xử lý:** Kết hợp URL và Content để tạo Payload đầy đủ.
-2. **Trích xuất đặc trưng:** Sử dụng `TfidfVectorizer` với kỹ thuật N-gram (1,2) để hiểu ngữ cảnh của các ký tự độc hại.
-3. **Mô hình AI:** Huấn luyện thuật toán **Random Forest Classifier** với 100 cây quyết định.
-4. **Regex WAF:** Xây dựng các mẫu (patterns) phổ biến để đối soát thủ công.
-5. **Đánh giá:** So sánh Accuracy, Precision, Recall và F1-Score.
+Hybrid Feature Engineering: Kết hợp sức mạnh của TF-IDF (NLP) để hiểu ngữ nghĩa câu lệnh và Statistical Analysis để đo lường độ hỗn loạn (Entropy), đếm ký tự đặc biệt, dấu hiệu SQLi/XSS.
 
-## 🚀 Kết quả thử nghiệm
-Dựa trên mã nguồn, dự án thực hiện các bài test quan trọng:
-* **Obfuscation Test:** Kiểm tra khả năng chống lách luật (bypass) khi kẻ tấn công thay đổi cách viết code (ví dụ: dùng `/**/` thay cho dấu cách).
-* **Latency Test:** Đo lường thời gian xử lý (độ trễ) tính bằng mili giây (ms) để xem phương pháp nào tối ưu cho hệ thống thực tế.
+Random Forest Brain: Sử dụng 300 cây quyết định (n_estimators=300) để đưa ra phán quyết chính xác nhất về tính độc hại của request.
 
-## 🛠️ Công nghệ sử dụng
-* **Ngôn ngữ:** Python 🐍
-* **Thư viện:**
-  * `Scikit-learn`: Xây dựng mô hình ML.
-  * `Pandas`: Quản lý và xử lý tập dữ liệu.
-  * `Regex`: Xử lý chuỗi và bộ lọc truyền thống.
-* **Dataset:** CSIC 2010 (Dữ liệu lưu lượng HTTP cho bảo mật).
+🛠️ Quy Trình Thực Hiện Dự Án
+Huấn luyện (Training Phase): Chạy file Python chính để xử lý bộ dữ liệu CSIC 2010, huấn luyện mô hình và xuất ra file final_model.pkl.
 
-## 📂 Cấu trúc file
-* `AI-WAF-vs-Regex-Comparison.py`: File mã nguồn chính chứa toàn bộ logic xử lý và so sánh.
-* `csic_database.csv`: Bộ dữ liệu mẫu (cần có để chạy code).
+Đánh giá (Evaluation): Hệ thống tự động vẽ Confusion Matrix và ROC Curve để kiểm chứng độ tin cậy. Xuất báo cáo chuyên nghiệp ra file waf_report.html.
 
----
-*Dự án được phát triển và lưu trữ thông qua Google Colab và GitHub.*
+Thực chiến (Deployment): Sử dụng file final_model.pkl kết hợp với script trung gian để thực hiện quét và lọc các request tấn công trực tiếp vào trang DVWA (Damn Vulnerable Web Application).
+
+📊 Chỉ Số Kiểm Soát
+Hệ thống không chỉ đo độ chính xác (Accuracy) mà còn kiểm soát chặt chẽ các chỉ số chuyên sâu của ngành bảo mật:
+
+TPR (True Positive Rate): Tỷ lệ bắt trúng mã độc.
+
+FPR (False Positive Rate): Tỷ lệ bắt nhầm người dùng bình thường (cực kỳ quan trọng để không gây phiền cho người dùng thật).
+
+FNR (False Negative Rate): Tỷ lệ bỏ sót cuộc tấn công.
+
+📂 Cấu Trúc Mã Nguồn
+AI-WAF-vs-Regex-Comparison.py: Mã nguồn huấn luyện hệ thống, xử lý đặc trưng và đánh giá.
+
+final_model.pkl: "Bộ não" của AI sau khi học xong, dùng để nhúng vào Web Server hoặc Tool quét DVWA.
+
+waf_report.html: Báo cáo kết quả phân tích trực quan.
+
+💻 Yêu Cầu Môi Trường
+Python 3.x
+
+Thư viện: pandas, scikit-learn, joblib, matplotlib, seaborn.
+
+Công cụ kiểm thử: DVWA chạy trên Docker hoặc XAMPP.
+
+Hướng dẫn sử dụng nhanh:
+
+Bỏ file csic_database.csv vào cùng thư mục.
+
+Chạy file python để huấn luyện: python waf_api.py.
+
+Lấy file final_model.pkl để tích hợp vào hệ thống kiểm tra DVWA của bạn.
