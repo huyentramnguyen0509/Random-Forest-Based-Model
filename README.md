@@ -1,6 +1,6 @@
 # Machine Learning Classifier for Web Attack Detection
 
-Dự án tập trung vào việc nghiên cứu và huấn luyện mô hình học máy (Random Forest) để phân loại HTTP requests độc hại. Đây là giai đoạn chuẩn bị "bộ não" trước khi tích hợp vào một hệ thống WAF thực tế.
+Dự án tập trung vào việc nghiên cứu và huấn luyện mô hình học máy (Random Forest) để phân loại HTTP requests độc hại.
 
 ---
 
