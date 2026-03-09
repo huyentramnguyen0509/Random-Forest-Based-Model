@@ -20,7 +20,8 @@ Dựa trên mã nguồn, dự án thực hiện các bài test quan trọng:
 
 ## 🛠️ Công nghệ sử dụng
 * **Ngôn ngữ:** Python 🐍
-* **Thư viện:** * `Scikit-learn`: Xây dựng mô hình ML.
+* **Thư viện:**
+  * `Scikit-learn`: Xây dựng mô hình ML.
   * `Pandas`: Quản lý và xử lý tập dữ liệu.
   * `Regex`: Xử lý chuỗi và bộ lọc truyền thống.
 * **Dataset:** CSIC 2010 (Dữ liệu lưu lượng HTTP cho bảo mật).
